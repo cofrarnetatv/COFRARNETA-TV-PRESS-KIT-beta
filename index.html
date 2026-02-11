@@ -132,6 +132,27 @@
             background: rgba(10, 10, 10, 0.95); border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.1s ease-out; transform-style: preserve-3d; position: relative; overflow: hidden;
         }
+        
+        /* NUEVO: Efecto Reflexión/Shine en Recuadros 3D */
+        .card-reflection::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-25deg);
+            animation: card-shine-anim 6s infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes card-shine-anim {
+            0% { left: -100%; }
+            15% { left: 200%; } /* Pasa rápido */
+            100% { left: 200%; } /* Espera antes de volver a pasar */
+        }
+
         .inner-content { transform: translateZ(60px); z-index: 2; position: relative; }
         .pack-founder-tilt { background: var(--gold) !important; color: black !important; border: none !important; }
         .pack-founder-tilt * { color: black !important; border-color: rgba(0,0,0,0.2) !important; }
@@ -272,7 +293,7 @@
             
             <div class="reveal-up delay-200 interactive-card mt-12 lg:mt-0">
                 <div class="relative bg-gold p-[1px] manifesto-content shadow-2xl">
-                    <div class="bg-black p-8 md:p-16 relative overflow-hidden inner-content">
+                    <div class="bg-black p-8 md:p-16 relative overflow-hidden inner-content card-reflection">
                         <div class="absolute -top-5 md:-top-10 -right-5 md:-right-10 opacity-10 font-black text-7xl md:text-[15rem] italic text-white" style="transform: translateZ(-50px);">MAR</div>
                         <h4 class="title-brand text-2xl md:text-4xl mb-10 md:mb-16 text-gold italic text-center">EL MANIFIESTO</h4>
                         <div class="space-y-8 md:space-y-12" style="transform: translateZ(30px);">
@@ -312,9 +333,9 @@
             </div>
             <div class="hero-title-container mb-6">
                 <div class="hero-title-content">
-                    <h2 class="title-brand text-5xl md:text-[9rem] tracking-tighter italic text-white leading-none">
+                    <h2 class="title-brand h1-responsive tracking-tighter italic text-white">
                         <span class="text-shine block" style="transform: translateZ(60px);">LA COFRARNETA</span>
-                        <span class="text-shine block text-2xl md:text-5xl mt-2 md:mt-4 text-gold tracking-widest" style="transform: translateZ(30px);">EL AFTER DE LA DERECHA</span>
+                        <span class="text-shine block italic text-gold" style="transform: translateZ(30px);">EL AFTER DE LA DERECHA</span>
                     </h2>
                 </div>
             </div>
@@ -322,7 +343,7 @@
             <div class="grid md:grid-cols-3 gap-8 md:gap-12 mt-12 md:mt-20">
                 <!-- Card 1 -->
                 <div class="interactive-card reveal-up">
-                    <div class="card-content p-8 md:p-12 text-white">
+                    <div class="card-content card-reflection p-8 md:p-12 text-white">
                         <div class="inner-content">
                             <div class="text-gold text-5xl md:text-7xl mb-6 font-black italic">00:00</div>
                             <h4 class="font-black mb-4 uppercase tracking-widest text-xs md:text-sm italic">Target Nocturno</h4>
@@ -332,7 +353,7 @@
                 </div>
                 <!-- Card 2 -->
                 <div class="interactive-card reveal-up delay-100">
-                    <div class="card-content p-8 md:p-12 text-white" style="border-color: rgba(242, 228, 29, 0.3);">
+                    <div class="card-content card-reflection p-8 md:p-12 text-white" style="border-color: rgba(242, 228, 29, 0.3);">
                         <div class="inner-content">
                             <div class="text-white text-5xl md:text-7xl mb-6 font-black italic">LIVE</div>
                             <h4 class="font-black mb-4 uppercase tracking-widest text-xs md:text-sm text-gold italic">Interacción Real</h4>
@@ -342,7 +363,7 @@
                 </div>
                 <!-- Card 3 -->
                 <div class="interactive-card reveal-up delay-200">
-                    <div class="card-content p-8 md:p-12 text-white">
+                    <div class="card-content card-reflection p-8 md:p-12 text-white">
                         <div class="inner-content">
                             <div class="text-gold text-5xl md:text-7xl mb-6 font-black italic">ULTRA</div>
                             <h4 class="font-black mb-4 uppercase tracking-widest text-xs md:text-sm italic">Estética Cuidada</h4>
@@ -375,7 +396,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mt-10">
             <!-- Pack After -->
             <div class="interactive-card reveal-up" onclick="openModal('modal-pack-after')">
-                <div class="card-content p-10 md:p-14 flex flex-col justify-between h-full">
+                <div class="card-content card-reflection p-10 md:p-14 flex flex-col justify-between h-full">
                     <div class="inner-content text-white">
                         <h4 class="title-brand text-2xl md:text-3xl mb-6 italic">Pack After</h4>
                         <p class="text-sm md:text-lg mb-8 font-light italic text-white">Presencia dinámica en vivo para conectar con una audiencia fiel.</p>
@@ -390,7 +411,7 @@
 
             <!-- Pack Fundador -->
             <div class="interactive-card reveal-up delay-100" onclick="openModal('modal-pack-founder')">
-                <div class="card-content p-10 md:p-14 pack-founder-tilt flex flex-col justify-between h-full">
+                <div class="card-content p-10 md:p-14 pack-founder-tilt flex flex-col justify-between h-full card-reflection">
                     <div class="absolute -top-6 -right-6 opacity-30 inner-content">
                         <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7l3-8z"/></svg>
                     </div>
@@ -408,7 +429,7 @@
 
             <!-- Equity Partner -->
             <div class="interactive-card reveal-up delay-200" onclick="openModal('modal-pack-equity')">
-                <div class="card-content p-10 md:p-14 flex flex-col justify-between h-full text-white">
+                <div class="card-content card-reflection p-10 md:p-14 flex flex-col justify-between h-full text-white">
                     <div class="inner-content">
                         <h4 class="title-brand text-2xl md:text-3xl mb-6 italic">EQUITY PARTNER</h4>
                         <p class="text-sm md:text-lg text-white mb-8 font-light italic">Socios financieros para la expansión nacional del proyecto.</p>
@@ -444,7 +465,7 @@
                 <span class="font-black uppercase tracking-widest text-[10px] md:text-xs">Discord</span>
             </a>
         </div>
-        <div class="text-white text-[10px] md:text-[12px] uppercase tracking-[1.5em] font-black px-6 italic">© 2026 Cofrarneta Producciones • Santiago, Chile •</div>
+        <div class="text-white text-[10px] md:text-[12px] uppercase tracking-[1.5em] font-black px-6 italic">© 2026 Cofrarneta Producciones • Santiago, Chile</div>
     </footer>
 
     <!-- MODAL DOSSIER -->
@@ -564,16 +585,21 @@
         function drawBG() {
             ctx.fillStyle = '#000'; ctx.fillRect(0, 0, width, height);
             ctx.fillStyle = '#f2e41d';
+            
+            // Draw Rain
             drops.forEach(d => {
                 ctx.globalAlpha = d.op; ctx.fillRect(d.x, d.y, d.s, d.s * 2.5);
                 d.y += d.sp; if(d.y > height) d.y = -20;
             });
-            // Rayos aleatorios sin flash de pantalla completa
-            if(bolt && !bolt.active && Math.random() < 0.01) { 
-                bolt.reset(); bolt.active = true;
+            
+            // Draw Random Pixel Bolts (Estéticos que caen)
+            if(bolt && !bolt.active && Math.random() < 0.01) { // 1% chance per frame
+                bolt.reset();
+                bolt.active = true;
             }
             if(bolt) bolt.draw();
-            ctx.globalAlpha = 1.0; 
+            
+            ctx.globalAlpha = 1.0; // Reset alpha
             requestAnimationFrame(drawBG);
         }
         drawBG();
